@@ -1,0 +1,15 @@
+matches <- read.csv("matches.csv")
+deliveries <- read.csv("deliveries.csv")
+head(matches)
+install.packages(c("ggplot2","dplyr"))
+library(ggplot2)
+library(dplyr)
+
+matches %>%
+  count(winner, sort = TRUE) %>%
+  head(10) %>%
+  ggplot(aes(x = reorder(winner, n), y = n, fill = winner)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Top 10 Teams by Wins")
